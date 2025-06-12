@@ -15,7 +15,7 @@ module.exports = async function handler(req, res) {
       console.log('📩 Mensaje recibido:', JSON.stringify(req.body, null, 2));
       return res.sendStatus(200);
     } else {
-      return res.status(405).send(`Método ${req.method} no permitido`);
+      return res.status(500).send('Error interno del servidor');
     }
   } catch (error) {
     console.error('❌ Error en el webhook:', error);
