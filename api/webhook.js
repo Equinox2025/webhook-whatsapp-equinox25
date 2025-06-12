@@ -1,20 +1,21 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'GET') {
     const VERIFY_TOKEN = 'equibox-token';
+
     const mode = req.query['hub.mode'];
     const token = req.query['hub.verify_token'];
     const challenge = req.query['hub.challenge'];
 
     if (mode && token && mode === 'subscribe' && token === VERIFY_TOKEN) {
-      return res.status(200).send(challenge);
+      res.status(200).send(challenge);
     } else {
-      return res.sendStatus(403);
+      res.sendStatus(403);
     }
-  }
-
-  if (req.method === 'POST') {
-    console.log('📩 Nuevo mensaje entrante:');
-    console.log(JSON.stringify(req.body, null, 2));
+  } else if (req.method === 'POST') {
+    console.log('📩 Nuevo mensaje entrante:', JSON.stringify(req.body, null, 2));
     res.sendStatus(200);
+  } else {
+    res.setHeader('Allow', ['GET', 'POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
