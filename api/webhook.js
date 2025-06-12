@@ -1,7 +1,7 @@
 module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
-      const VERIFY_TOKEN = 'equibox-token';
+      const VERIFY_TOKEN = 'equinox-token';
       const mode = req.query['hub.mode'];
       const token = req.query['hub.verify_token'];
       const challenge = req.query['hub.challenge'];
