@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const VERIFY_TOKEN = 'equibox-token';
@@ -21,4 +21,4 @@ export default async function handler(req, res) {
     console.error('❌ Error en el webhook:', error);
     res.status(500).send('Error interno del servidor');
   }
-}
+};
