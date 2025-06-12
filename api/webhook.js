@@ -7,15 +7,15 @@ export default async function handler(req, res) {
       const challenge = req.query['hub.challenge'];
 
       if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-        res.status(200).send(challenge);
+        return res.status(200).send(challenge);
       } else {
-        res.sendStatus(403);
+        return res.sendStatus(403);
       }
     } else if (req.method === 'POST') {
       console.log('📩 Mensaje recibido:', JSON.stringify(req.body, null, 2));
-      res.sendStatus(200);
+      return res.sendStatus(200);
     } else {
-      res.status(405).send(`Método ${req.method} no permitido`);
+      return res.status(405).send(`Método ${req.method} no permitido`);
     }
   } catch (error) {
     console.error('❌ Error en el webhook:', error);
